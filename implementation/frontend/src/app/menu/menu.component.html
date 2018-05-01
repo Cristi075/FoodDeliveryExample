@@ -1,0 +1,25 @@
+<div *ngIf="this.authService.isClient()">
+    <div class="container text-white" style="opacity:0.97;">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-inverse">
+                <thead>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of this.products">
+                        <td>{{product.name}}</td>
+                        <td>{{product.price}} RON</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary" (click)="addToCart(product)">Add to cart</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="text-white" *ngIf="!this.authService.isClient()">
+    <h1>You are not authorized to view this page</h1>
+</div>

@@ -1,0 +1,60 @@
+<div *ngIf="this.order">
+  <div *ngIf="this.authService.getName()==this.order.owner.username || this.authService.isEmployee()">
+    <div class="container text-white" style="opacity:0.97;">
+
+      <h2>Order nr. {{this.order.id}}</h2>
+      <h3> Deliver to : {{this.order.owner.fullName}} ({{this.order.owner.username}})</h3>
+      <h3> Address: {{this.order.address.city}}, {{this.order.address.street}} Nr. {{this.order.address.number}}</h3>
+      <h3> Status: {{this.order.status}}</h3>
+
+      <div *ngIf="this.authService.isEmployee()">
+        <td class="pull-left">
+          <button type="button" class="btn btn-large btn-warning" (click)="getRoute()">View route</button>
+        </td>
+        <td class="pull-left">
+          <button type="button" class="btn btn-large btn-primary" (click)="getReceipt()">Get receipt</button>
+        </td>
+        <td class="pull-right">
+          <button type="button" class="btn btn-large btn-success" (click)="markAsDone()">Set as done</button>
+        </td>
+      </div>
+
+      <div class="table-responsive" *ngIf="this.order.productOrders != 0">
+        <table class="table table-bordered table-hover table-inverse">
+          <thead>
+            <th>Product</th>
+            <th>Unit price</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of this.order.productOrders">
+              <td>{{item.product.name}}</td>
+              <td>{{item.product.price}} RON</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.product.price * item.quantity}} RON</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="this.order.productOrders == 0">
+        Error. Empty order. Please report this to the administrator
+      </div>
+      <div *ngIf="this.order.productOrders != 0" class="pull-left">
+        <h4>
+          Total price: {{this.totalPrice}} RON
+        </h4>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="this.route">
+      <app-route-display [model]="this.route">
+
+      </app-route-display>
+    </div>
+  </div>
+
+  <div class="text-white" *ngIf="!(this.authService.getName()==this.order.owner.username || this.authService.isEmployee())">
+    <h1>You are not authorized to view this page</h1>
+  </div>
+</div>

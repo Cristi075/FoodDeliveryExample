@@ -1,0 +1,21 @@
+<div class="container bg-inverse text-white" style="opacity:0.97;" *ngIf="this.authService.isAdmin()">
+  <br>
+  
+  <app-product-form [model]="this.product" (errorEmitter)="this.processEvent($event)">
+  </app-product-form>
+
+  <button type="submit" class="btn btn-primary" [disabled]="this.error" (click)="onSubmit()">Submit</button>
+
+  <div *ngIf="created==true">
+    <i class="fa fa-check fa-3x" style="color:green"></i> {{this.message}}
+  </div>
+  <div *ngIf="created==false">
+    <i class="fa fa-times fa-3x" style="color:red"></i> {{this.message}}
+  </div>
+  <br>
+  <br>
+</div>
+
+<div class="text-white" *ngIf="!this.authService.isAdmin()">
+  <h1>You are not authorized to view this page</h1>
+</div>

@@ -1,0 +1,25 @@
+<div class="container text-white">
+  <div>
+    <h3>From: {{this.route.startAddress}}</h3>
+    <h3>To: {{this.route.endAddress}}</h3>
+    <h3>Distance: ~{{this.route.distance}} meters</h3>
+    <h3>Duration: ~{{this.route.duration}} seconds</h3>
+  </div>
+  <br>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-inverse">
+      <thead>
+        <th>Distance</th>
+        <th>Duration</th>
+        <th>Instruction</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let step of this.route.steps">
+          <td>{{step.distance}} meters</td>
+          <td>{{step.duration}} seconds</td>
+          <td [innerHTML]=step.instruction></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

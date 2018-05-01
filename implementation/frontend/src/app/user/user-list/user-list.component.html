@@ -1,0 +1,33 @@
+<div class="container" style="opacity:0.97;" *ngIf="this.authService.isAdmin()">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-inverse">
+            <thead>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Fullname</th>
+                <th>Roles</th>
+                <th></th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of this.users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.fullName}}</td>
+                    <td>
+                        <p *ngFor="let role of user.roles"> {{role.name}}</p>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="delete(user.id)">Delete</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-warning" [routerLink]="['../detail/',user.id]">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="text-white" *ngIf="!this.authService.isAdmin()">
+    <h1>You are not authorized to view this page</h1>
+</div>

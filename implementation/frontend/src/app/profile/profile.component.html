@@ -1,0 +1,56 @@
+<div class="container bg-inverse text-white" style="opacity:0.97;">
+  <br>
+  <br>
+  <h2>{{this.user.username}}'s profile</h2>
+  <br>
+  <form #userForm="ngForm">
+
+    <div class="form-group row">
+      <label for="id" class="col-sm-2 col-form-label">ID</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="id" [(ngModel)]="user.id" name="id" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="username" class="col-sm-2 col-form-label">Username</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row" [ngClass]="{'has-danger': messages.fullName }">
+      <label for="fullName" class="col-sm-2 col-form-label">Full Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" [ngClass]="{'form-control-danger': messages.fullName }" id="fullName" placeholder="Full Name"
+          [(ngModel)]="user.fullName" name="fullName">
+        <div class="form-control-feedback">{{messages.fullName}}</div>
+      </div>
+    </div>
+
+    <div class="form-group row" [ngClass]="{'has-danger': messages.email }">
+      <label for="email" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" [ngClass]="{'form-control-danger': messages.email }" id="email" placeholder="email"
+          [(ngModel)]="user.email" name="email">
+        <div class="form-control-feedback">{{messages.email}}</div>
+      </div>
+    </div>
+
+    <div class="form-group row" [ngClass]="{'has-danger': messages.phoneNumber }">
+      <label for="phoneNumber" class="col-sm-2 col-form-label">Phone number</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" [ngClass]="{'form-control-danger': messages.phoneNumber }" id="phoneNumber" placeholder="Phone Number"
+          [(ngModel)]="user.phoneNumber" name="phoneNumber">
+        <div class="form-control-feedback">{{messages.phoneNumber}}</div>
+      </div>
+    </div>
+
+  </form>
+  
+  <div class="pull-right">
+    <button type="submit" class="btn btn-success" (click)="onSubmit()" [disabled]="this.error">Submit</button>
+  </div>
+  <br>
+  <br>
+</div>

@@ -1,0 +1,30 @@
+<form #addressForm="ngForm">
+
+  <div class="form-group row" [ngClass]="{'has-danger': messages.city }">
+    <label for="city" class="col-sm-2 col-form-label">City</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [ngClass]="{'form-control-danger': messages.city }" id="city" placeholder="City"
+        [(ngModel)]="address.city" name="city" [readonly]="!this.editable">
+      <div class="form-control-feedback">{{messages.city}}</div>
+    </div>
+  </div>
+
+  <div class="form-group row" [ngClass]="{'has-danger': messages.street }">
+    <label for="street" class="col-sm-2 col-form-label">Street</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [ngClass]="{'form-control-danger': messages.street }" id="street" placeholder="Street"
+        [(ngModel)]="address.street" name="street" [readonly]="!this.editable">
+      <div class="form-control-feedback">{{messages.street}}</div>
+    </div>
+  </div>
+
+  <div class="form-group row" [ngClass]="{'has-danger': messages.number }">
+    <label for="number" class="col-sm-2 col-form-label">Number</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" [ngClass]="{'form-control-danger': messages.number }" id="number" placeholder="Number"
+        [(ngModel)]="address.number" name="number" [readonly]="!this.editable">
+      <div class="form-control-feedback">{{messages.number}}</div>
+    </div>
+  </div>
+
+</form>

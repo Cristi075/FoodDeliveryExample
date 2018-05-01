@@ -1,0 +1,102 @@
+<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
+  <a class="navbar-brand" [routerLink]="['/']">HeapMenu</a>
+
+  <ul class="nav navbar-nav">
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <a class="nav-link" [routerLink]="['/']">Home</a>
+    </li>
+
+    <li class="nav-item dropdown" [routerLinkActive]="['active']" *ngIf="this.authService.isAdmin()">
+      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Users</a>
+      <ul class="dropdown-menu" style="padding:1rem">
+        <li>
+          <a [routerLink]="['user/list']">List users</a>
+        </li>
+        <li>
+          <a [routerLink]="['user/add']">Add user</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item dropdown" [routerLinkActive]="['active']" *ngIf="this.authService.isAdmin()">
+      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Products</a>
+      <ul class="dropdown-menu" style="padding:1rem">
+        <li>
+          <a [routerLink]="['product/list']">List products</a>
+        </li>
+        <li>
+          <a [routerLink]="['product/add']">Add product</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="this.authService.isClient()">
+      <a class="nav-link" [routerLink]="['/menu']">Menu</a>
+    </li>
+
+    <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}" *ngIf="this.authService.isClient() || this.authService.isEmployee()">
+      <a class="nav-link" [routerLink]="['/order/list']">Orders</a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{'pulse': cartAnimation}" [routerLink]="['cart']" *ngIf="this.authService.isClient()">
+        Shopping Cart <i class="fa fa-shopping-cart "></i> ({{this.nrOfItems}})
+      </a>
+    </li>
+
+  </ul>
+
+  <ul class="nav navbar-nav pull-right">
+
+    <li class=" nav-item dropdown dropdown-notifications" *ngIf="this.authService.isClient()">
+      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+        <i [attr.data-count]="this.notificationCount" class="fa fa-bell" [ngClass]="{'notification-icon': this.notificationCount!=0}"></i>
+      </a>
+
+      <div class="dropdown-container bg-inverse text-white">
+
+        <div class="dropdown-toolbar bg-inverse text-white">
+          <h3 class="dropdown-toolbar-title">Notifications ({{this.notificationCount}})</h3>
+        </div>
+
+        <ul class="dropdown-menu bg-inverse text-white">
+          <div class="notification-content" *ngFor="let notification of this.notifications">
+            <i class="fa fa-envelope"></i>
+            {{notification.text}}
+            <i class="fa fa-arrow-right" style="color:red; cursor:pointer" (click)="markAsRead(notification)"></i>
+            <br>
+          </div>
+        </ul>
+
+        <div class="dropdown-footer text-center bg-inverse text-white">
+          <a href="#" [routerLink]="['notification-list']">View All</a>
+        </div>
+
+      </div>
+    </li>
+
+    <li class="nav-item dropdown" [routerLinkActive]="['active']" *ngIf="this.authService.isAuthenticated()">
+      <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Profile</a>
+      <ul class="dropdown-menu" style="padding:1rem">
+        <li>
+          <a [routerLink]="['profile']">View profile</a>
+        </li>
+        <li>
+          <a [routerLink]="['address/list']">Manage addresses</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item" *ngIf="this.authService.isAuthenticated()">
+      <p class="nav text-muted navbar-text">Logged in as {{this.authService.getName()}}</p>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['login']" *ngIf="!this.authService.isAuthenticated()">Login</a>
+
+      <a class="nav-link" style="cursor: pointer" (click)="this.logout()" *ngIf="this.authService.isAuthenticated()">Logout</a>
+    </li>
+
+  </ul>
+
+</nav>

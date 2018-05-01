@@ -1,0 +1,30 @@
+<div class="container"  style="opacity:0.97;" *ngIf="this.authService.isClient() || this.authService.isEmployee()">
+  <div class="table-responsive">
+      <table class="table table-bordered table-hover table-inverse">
+          <thead>
+              <th>Contents</th>
+              <th>Address</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th></th>
+          </thead>
+          <tbody>
+              <tr *ngFor="let order of this.orders">
+                  <td>
+                    <p *ngFor="let prod of order.productOrders">{{prod.quantity}} x {{prod.product.name}}</p>
+                  </td>
+                  <td>{{order.address.city}}, {{order.address.street}} Nr. {{order.address.number}}</td>
+                  <td>{{order.price}} RON</td>
+                  <td>{{order.status}}</td>
+                  <td>
+                      <button type="button" class="btn btn-sm btn-warning" [routerLink]="['../detail/',order.id]">Details</button>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+<div class="text-white" *ngIf="!(this.authService.isClient() || this.authService.isEmployee())">
+    <h1>You are not authorized to view this page</h1>
+  </div>

@@ -1,0 +1,28 @@
+<div class="container"  style="opacity:0.97;">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-inverse">
+            <thead>
+                <th>Address</th>
+                <th></th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let address of this.addresses">
+                    <td>{{address.city}}
+                      <br>
+                      {{address.street}}, Nr. {{address.number}}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger" (click)="delete(address.id)">Delete</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-warning" [routerLink]="['../detail/',address.id]">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+      <button type="button" class="btn btn-block btn-success" [routerLink]="['../add/']">Add new address</button>
+    </div>
+  </div>
